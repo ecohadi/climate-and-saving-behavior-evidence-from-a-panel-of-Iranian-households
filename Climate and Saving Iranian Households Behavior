@@ -1,3 +1,4 @@
+*Stata.v.15
 clear
 use "E:\STATA\stata13.data\r89'.dta"
 label variable b01 "p2,place of residence features: How to capture a place of residence"
