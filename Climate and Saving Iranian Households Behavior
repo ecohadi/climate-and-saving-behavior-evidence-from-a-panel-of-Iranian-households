@@ -1,0 +1,3034 @@
+clear
+use "E:\STATA\stata13.data\r89'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s01.dta"
+drop _merge
+*****
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+*************************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r89\r89p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2010
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+********************
+tostring c01-county, replace force
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+*************************************************
+clear
+use "E:\STATA\stata13.data\u89'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u89\u89p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2010
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+**************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+*************************************************
+clear
+use "E:\STATA\stata13.data\r90'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r90\r90p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2011
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+******************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************************
+*************************************************************
+clear
+use "E:\STATA\stata13.data\u90'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u90\u90p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2011
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+*************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+*************************************************
+clear
+use "E:\STATA\stata13.data\r91'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r91\r91p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2012
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+******************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************************
+*************************************************************
+clear
+use "E:\STATA\stata13.data\u91'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u91\u91p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2012
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+*****************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+*************************************************
+clear
+use "E:\STATA\stata13.data\r92'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r92\r92p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2013
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+********************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************************
+*************************************************************
+clear
+use "E:\STATA\stata13.data\u92'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u92\u92p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2013
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+********************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+*************************************************
+clear
+use "E:\STATA\stata13.data\r93'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r93\r93p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2014
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+*********************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************************
+*************************************************************
+clear
+use "E:\STATA\stata13.data\u93'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u93\u93p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2014
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+****************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+*************************************************
+clear
+use "E:\STATA\stata13.data\r94'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Rural\r94\r94p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2015
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+**********************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************************
+*************************************************************
+clear
+use "E:\STATA\stata13.data\u94'.dta"
+label variable b01 "p2,place of residence features: How to capture a place of residence"
+rename b01 cpresodence
+label variable b02 "p2,place of residence features: Other Types of Capture by Name"
+rename b02 otcresidence
+label variable b03 "p2,place of residence features: Number of rooms available"
+rename b03 nroom
+label variable b04 "p2,place of residence features: Infrastructure level of residence"
+rename b04 infraresidence
+*************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s01.dta"
+drop _merge
+destring dycol02-dycol06, replace force
+sort address
+egen food=sum(dycol06), by(address)
+bysort address (food) : keep if _n == _N
+gen foodexp= food*12
+rename dycol01 dycol01p3s01, replace
+rename dycol02 dycol02p3s01, replace
+rename dycol03 dycol03p3s01, replace
+rename dycol04 dycol04p3s01, replace
+rename dycol05 dycol05p3s01, replace
+rename dycol06 dycol06p3s01, replace
+*tostring dycol01-foodexp, replace
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s02.dta"
+drop _merge
+**************************
+egen drink=sum(dycol06), by(address)
+bysort address (drink) : keep if _n == _N
+gen drinkexp= drink*12
+rename dycol01 dycol01p3s02, replace
+rename dycol02 dycol02p3s02, replace
+rename dycol03 dycol03p3s02, replace
+rename dycol04 dycol04p3s02, replace
+rename dycol05 dycol05p3s02, replace
+rename dycol06 dycol06p3s02, replace
+***********************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s03.dta"
+drop _merge
+
+***************************
+egen clothing=sum(dycol03), by(address)
+bysort address (clothing) : keep if _n == _N
+gen clothingexp= clothing*12
+rename dycol01 dycol01p3s03, replace
+rename dycol02 dycol02p3s03, replace
+rename dycol03 dycol03p3s03, replace
+*****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s04.dta"
+drop _merge
+***************************
+egen housing=sum(dycol04), by(address)
+bysort address (housing) : keep if _n == _N
+gen housingexp= housing*12
+rename dycol01 dycol01p3s04, replace
+rename dycol02 dycol02p3s04, replace
+rename dycol03 dycol03p3s04, replace
+rename dycol04 dycol04p3s04, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s05.dta"
+drop _merge
+***************************
+egen furniture=sum(dycol03), by(address)
+bysort address (furniture) : keep if _n == _N
+gen furnitureexp= furniture*12
+rename dycol01 dycol01p3s05, replace
+rename dycol02 dycol02p3s05, replace
+rename dycol03 dycol03p3s05, replace
+*******************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s06.dta"
+drop _merge
+***************************
+egen health=sum(dycol03), by(address)
+bysort address (health) : keep if _n == _N
+gen healthexp= health*12
+rename dycol01 dycol01p3s06, replace
+rename dycol02 dycol02p3s06, replace
+rename dycol03 dycol03p3s06, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s07.dta"
+drop _merge
+***************************
+egen transportation=sum(dycol03), by(address)
+bysort address (transportation) : keep if _n == _N
+gen transportationexp= transportation*12
+rename dycol01 dycol01p3s07, replace
+rename dycol02 dycol02p3s07, replace
+rename dycol03 dycol03p3s07, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s08.dta"
+drop _merge
+***************************
+egen communications=sum(dycol03), by(address)
+bysort address (communications) : keep if _n == _N
+gen communicationsexp= communications*12
+rename dycol01 dycol01p3s08, replace
+rename dycol02 dycol02p3s08, replace
+rename dycol03 dycol03p3s08, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s09.dta"
+drop _merge
+***************************
+egen entertainment=sum(dycol03), by(address)
+bysort address (entertainment) : keep if _n == _N
+gen entertainmentexp= entertainment*12
+rename dycol01 dycol01p3s09, replace
+rename dycol02 dycol02p3s09, replace
+rename dycol03 dycol03p3s09, replace
+********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s11.dta"
+drop _merge
+***************************
+egen restaurant=sum(dycol03), by(address)
+bysort address (restaurant) : keep if _n == _N
+gen restaurantsexp= restaurant*12
+rename dycol01 dycol01p3s11, replace
+rename dycol02 dycol02p3s11, replace
+rename dycol03 dycol03p3s11, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s12.dta"
+drop _merge
+***************************
+egen other=sum(dycol03), by(address)
+bysort address (other) : keep if _n == _N
+gen otherexp= other*12
+rename dycol01 dycol01p3s12, replace
+rename dycol02 dycol02p3s12, replace
+rename dycol03 dycol03p3s12, replace
+****************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s13.dta"
+drop _merge
+***************************
+egen durablegoods=sum(dycol05), by(address)
+egen secondclassgoods=sum(dycol06), by(address)
+bysort address (durablegoods) : keep if _n == _N
+gen urablegoodsexp= durablegoods+secondclassgoods
+*gen durablegoodsexp= durablegoodssec*12
+rename dycol01 dycol01p3s13, replace
+rename dycol02 dycol02p3s13, replace
+rename dycol03 dycol03p3s13, replace
+rename dycol04 dycol04p3s13, replace
+rename dycol05 dycol05p3s13, replace
+rename dycol06 dycol06p3s13, replace
+***********************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p3s14.dta"
+drop _merge
+***************************
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+gen investmentsec2= dycol03+dycol04
+egen investment=sum(investmentsec2), by(address)
+bysort address (investment) : keep if _n == _N
+gen investmentexp= investment*12
+rename dycol01 dycol01p3s14, replace
+rename dycol02 dycol02p3s14, replace
+rename dycol03 dycol03p3s14, replace
+rename dycol04 dycol04p3s14, replace
+********************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p4s01.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income01=sum(dycol15), by(address)
+bysort address (income01) : keep if _n == _N
+rename dycol01 dycol01p4s01, replace
+rename dycol02 dycol02p4s01, replace
+rename dycol03 dycol03p4s01, replace
+rename dycol04 dycol04p4s01, replace
+rename dycol05 dycol05p4s01, replace
+rename dycol06 dycol06p4s01, replace
+rename dycol07 dycol07p4s01, replace
+rename dycol08 dycol08p4s01, replace
+rename dycol09 dycol09p4s01, replace
+rename dycol10 dycol10p4s01, replace
+rename dycol11 dycol11p4s01, replace
+rename dycol12 dycol20p4s01, replace
+rename dycol13 dycol30p4s01, replace
+rename dycol14 dycol40p4s01, replace
+rename dycol15 dycol15p4s01, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p4s02.dta"
+drop _merge
+destring dycol15, replace force
+replace dycol15=0 if dycol15==.
+egen income02=sum(dycol15), by(address)
+bysort address (income02) : keep if _n == _N
+rename dycol01 dycol01p4s02, replace
+rename dycol02 dycol02p4s02, replace
+rename dycol03 dycol03p4s02, replace
+rename dycol04 dycol04p4s02, replace
+rename dycol05 dycol05p4s02, replace
+rename dycol06 dycol06p4s02, replace
+rename dycol07 dycol07p4s02, replace
+rename dycol08 dycol08p4s02, replace
+rename dycol09 dycol09p4s02, replace
+rename dycol10 dycol10p4s02, replace
+rename dycol11 dycol11p4s02, replace
+rename dycol12 dycol20p4s02, replace
+rename dycol13 dycol30p4s02, replace
+rename dycol14 dycol40p4s02, replace
+rename dycol15 dycol15p4s02, replace
+***************************
+merge 1:m address using "E:\STATA\MyData\Urban\u94\u94p4s03.dta"
+drop _merge
+destring dycol03-dycol08, replace force
+replace dycol03=0 if dycol03==.
+replace dycol04=0 if dycol04==.
+replace dycol05=0 if dycol05==.
+replace dycol06=0 if dycol06==.
+replace dycol07=0 if dycol07==.
+replace dycol08=0 if dycol08==.
+gen incomepluse= dycol03+dycol04+dycol05+dycol06+dycol07+dycol08
+egen income03=sum(incomepluse), by(address)
+bysort address (income03) : keep if _n == _N
+rename dycol01 dycol01p4s03, replace
+rename dycol03 dycol03p4s03, replace
+rename dycol04 dycol04p4s03, replace
+rename dycol05 dycol05p4s03, replace
+rename dycol06 dycol06p4s03, replace
+rename dycol07 dycol07p4s03, replace
+rename dycol08 dycol08p4s03, replace
+***************************
+gen year=2015
+gen RU=substr(address,1,1)
+gen province= substr(address,2,2)
+gen county=substr(address,4,2)
+******************************
+tostring c01-county, replace force
+save C:\Users\Hadi-H\Desktop\buffer , replace
+append using "E:\STATA\discountrate\discountdata" 
+save "E:\STATA\discountrate\discountdata",replace
+*************************************************
+clear
+use "E:\STATA\discountrate\discountdata"
+rename urablegoodsexp durablegoodsexp
+destring clothingexp housingexp furnitureexp ///
+healthexp transportationexp communicationsexp entertainmentexp ///
+restaurantsexp otherexp durablegoodsexp investment, replace force
+gen clothingexpnew= clothingexp+durablegoodsexp if dycol01p3s13=="031231" ///
+| dycol01p3s13=="031243" | dycol01p3s13=="031315" | dycol01p3s13=="031413"
+replace clothingexpnew= clothingexp if clothingexpnew==.
+****************
+gen housingexpnew= housingexp+durablegoodsexp if dycol01p3s13=="043111" ///
+| dycol01p3s13=="043112" | dycol01p3s13=="043113" | dycol01p3s13=="043114" ///
+| dycol01p3s13=="043117" | dycol01p3s13=="043118" | dycol01p3s13=="043121" ///
+| dycol01p3s13=="043122" | dycol01p3s13=="043124" | dycol01p3s13=="043125" ///
+| dycol01p3s13=="043126" | dycol01p3s13=="043127" | dycol01p3s13=="043129" ///
+| dycol01p3s13=="043131" | dycol01p3s13=="043132" | dycol01p3s13=="043134" ///
+| dycol01p3s13=="043135" | dycol01p3s13=="043211" | dycol01p3s13=="043212" ///
+| dycol01p3s13=="043213" | dycol01p3s13=="043214" | dycol01p3s13=="043215" ///
+| dycol01p3s13=="043216" | dycol01p3s13=="043217" | dycol01p3s13=="043218" ///
+| dycol01p3s13=="043219" | dycol01p3s13=="043222" | dycol01p3s13=="043223" ///
+| dycol01p3s13=="043224" | dycol01p3s13=="043225" | dycol01p3s13=="04322" 
+replace housingexpnew= housingexp if housingexpnew==.
+***************
+gen furnitureexpnew=furnitureexp+durablegoodsexp if  dycol01p3s13=="051141" ///
+| dycol01p3s13=="051142" | dycol01p3s13=="051143" | dycol01p3s13=="051153" /// 
+| dycol01p3s13=="051154" | dycol01p3s13=="051156" | dycol01p3s13=="051158" /// 
+| dycol01p3s13=="051159" | dycol01p3s13=="051161" | dycol01p3s13=="051171" ///
+| dycol01p3s13=="051172" | dycol01p3s13=="051173" | dycol01p3s13=="051174" ///
+| dycol01p3s13=="051175"
+replace  furnitureexpnew= furnitureexp if furnitureexpnew==.
+**************
+gen healthexpnew=healthexp+durablegoodsexp if dycol01p3s13=="061211" ///
+| dycol01p3s13=="061214" | dycol01p3s13=="062124" | dycol01p3s13=="062125" ///
+| dycol01p3s13=="062126" | dycol01p3s13=="062127" | dycol01p3s13=="063141" ///
+| dycol01p3s13=="063142" | dycol01p3s13=="063143" | dycol01p3s13=="063144" ///
+| dycol01p3s13=="063145" | dycol01p3s13=="063146" | dycol01p3s13=="063147" ///
+| dycol01p3s13=="063148" | dycol01p3s13=="063149" | dycol01p3s13=="063151" ///
+| dycol01p3s13=="063152"
+replace healthexpnew=healthexp if healthexpnew==.
+***************
+gen transportationexpnew=transportationexp+durablegoodsexp if dycol01p3s13=="071111" ///
+| dycol01p3s13=="071112" | dycol01p3s13=="071116" | dycol01p3s13=="071117" ///
+| dycol01p3s13=="071211" | dycol01p3s13=="071311" | dycol01p3s13=="071312" ///
+| dycol01p3s13=="071314" | dycol01p3s13=="072111" | dycol01p3s13=="072113" ///
+| dycol01p3s13=="072117" | dycol01p3s13=="072118" | dycol01p3s13=="072119" ///
+| dycol01p3s13=="072122" | dycol01p3s13=="072123" | dycol01p3s13=="072127" ///
+| dycol01p3s13=="072131" | dycol01p3s13=="072132" | dycol01p3s13=="072133" ///
+| dycol01p3s13=="072135" | dycol01p3s13=="072137" | dycol01p3s13=="072139" ///
+| dycol01p3s13=="072141" | dycol01p3s13=="072142" | dycol01p3s13=="072311" ///
+| dycol01p3s13=="072319" | dycol01p3s13=="072321" | dycol01p3s13=="072323" ///
+| dycol01p3s13=="072413" | dycol01p3s13=="072414" | dycol01p3s13=="072415" ///
+| dycol01p3s13=="072416" | dycol01p3s13=="072417" | dycol01p3s13=="072421" ///
+| dycol01p3s13=="072422"
+replace transportationexpnew=transportationexp if transportationexpnew==.
+*********************
+gen communicationsexpnew=communicationsexp+durablegoodsexp if dycol01p3s13=="082111" ///
+| dycol01p3s13=="082112" | dycol01p3s13=="082113" | dycol01p3s13=="082117" ///
+| dycol01p3s13=="082112"
+replace communicationsexpnew=communicationsexp if communicationsexpnew==.
+********************
+gen entertainmentexpnew=entertainmentexp+durablegoodsexp if dycol01p3s13=="091111" ///
+| dycol01p3s13=="091117" | dycol01p3s13=="091119" | dycol01p3s13=="091121" ///
+| dycol01p3s13=="091122" | dycol01p3s13=="091125" | dycol01p3s13=="091126" ///
+| dycol01p3s13=="091127" | dycol01p3s13=="091128" | dycol01p3s13=="091129" ///
+| dycol01p3s13=="091211" | dycol01p3s13=="091212" | dycol01p3s13=="091224" ///
+| dycol01p3s13=="091225" | dycol01p3s13=="091311" | dycol01p3s13=="091312" ///
+| dycol01p3s13=="091313" | dycol01p3s13=="091315" | dycol01p3s13=="091316" ///
+| dycol01p3s13=="091317" | dycol01p3s13=="091319" | dycol01p3s13=="091325" ///
+| dycol01p3s13=="091511" | dycol01p3s13=="091515" | dycol01p3s13=="091516" ///
+| dycol01p3s13=="092122" | dycol01p3s13=="092211" | dycol01p3s13=="092213" ///
+| dycol01p3s13=="092214" | dycol01p3s13=="092311" | dycol01p3s13=="092313" ///
+| dycol01p3s13=="092314" | dycol01p3s13=="093118" | dycol01p3s13=="093119" ///
+| dycol01p3s13=="093121" | dycol01p3s13=="093122" | dycol01p3s13=="093124" ///
+| dycol01p3s13=="093125" | dycol01p3s13=="093126" | dycol01p3s13=="093127" ///
+| dycol01p3s13=="093129" | dycol01p3s13=="093212" | dycol01p3s13=="093213" ///
+| dycol01p3s13=="093214" | dycol01p3s13=="093216" | dycol01p3s13=="093218" ///
+| dycol01p3s13=="093219" | dycol01p3s13=="093223" | dycol01p3s13=="093224" ///
+| dycol01p3s13=="093226" | dycol01p3s13=="093228" | dycol01p3s13=="093229" ///
+| dycol01p3s13=="093233" | dycol01p3s13=="093235" | dycol01p3s13=="093315" ///
+| dycol01p3s13=="093316" | dycol01p3s13=="093411" | dycol01p3s13=="093412" ///
+| dycol01p3s13=="093414" | dycol01p3s13=="093416" | dycol01p3s13=="093417" ///
+| dycol01p3s13=="095111" | dycol01p3s13=="095112" | dycol01p3s13=="095113" ///
+| dycol01p3s13=="095114" | dycol01p3s13=="095115" | dycol01p3s13=="095121" ///
+| dycol01p3s13=="095125" | dycol01p3s13=="096111" | dycol01p3s13=="096112" ///
+| dycol01p3s13=="096113" | dycol01p3s13=="096114" | dycol01p3s13=="096111"
+replace entertainmentexpnew=entertainmentexp if entertainmentexpnew==.
+*******************************
+*this section is problem
+gen educationexp=0
+gen educationexpnew=educationexp+durablegoodsexp if dycol01p3s13=="101111" ///
+| dycol01p3s13=="101111" | dycol01p3s13=="101112" | dycol01p3s13=="101113" ///
+| dycol01p3s13=="101114" | dycol01p3s13=="101115" | dycol01p3s13=="102111" ///
+| dycol01p3s13=="102112" | dycol01p3s13=="102113" | dycol01p3s13=="102114" ///
+| dycol01p3s13=="102114" | dycol01p3s13=="102115" | dycol01p3s13=="103111" /// 
+| dycol01p3s13=="103112" | dycol01p3s13=="103113" | dycol01p3s13=="103114" ///
+| dycol01p3s13=="103115" | dycol01p3s13=="103116" | dycol01p3s13=="104111" ///
+| dycol01p3s13=="104112" | dycol01p3s13=="104113" | dycol01p3s13=="104114" ///
+| dycol01p3s13=="104115" | dycol01p3s13=="105111" | dycol01p3s13=="105112" ///
+| dycol01p3s13=="105113" | dycol01p3s13=="105114" | dycol01p3s13=="105115" ///
+*replace educationexpnew=educationexp if educationexpnew==.
+*******************************
+gen otherxpnew=otherexp+durablegoodsexp if dycol01p3s13=="123111" ///
+| dycol01p3s13=="123112" | dycol01p3s13=="123113" | dycol01p3s13=="123121" ///
+| dycol01p3s13=="123122" | dycol01p3s13=="123131" | dycol01p3s13=="123133" ///
+| dycol01p3s13=="123134" | dycol01p3s13=="123224" | dycol01p3s13=="123225" ///
+| dycol01p3s13=="124113" | dycol01p3s13=="125111" | dycol01p3s13=="125112" ///
+| dycol01p3s13=="125113" | dycol01p3s13=="125114" | dycol01p3s13=="125115" ///
+| dycol01p3s13=="125116" | dycol01p3s13=="125117" | dycol01p3s13=="125118" ///
+| dycol01p3s13=="125119" | dycol01p3s13=="125121" | dycol01p3s13=="125211" ///
+| dycol01p3s13=="125212" | dycol01p3s13=="125311" | dycol01p3s13=="125312" ///
+| dycol01p3s13=="125313" | dycol01p3s13=="125314" | dycol01p3s13=="125315" ///
+| dycol01p3s13=="125316" | dycol01p3s13=="125317" | dycol01p3s13=="125411" ///
+| dycol01p3s13=="125412" | dycol01p3s13=="125413" | dycol01p3s13=="125511" ///
+| dycol01p3s13=="126111" | dycol01p3s13=="126112" | dycol01p3s13=="126211" ///
+| dycol01p3s13=="126212" | dycol01p3s13=="127111" | dycol01p3s13=="127113" ///
+| dycol01p3s13=="127114" | dycol01p3s13=="127115" | dycol01p3s13=="127116" ///
+| dycol01p3s13=="127117" | dycol01p3s13=="127118" | dycol01p3s13=="127119" ///
+| dycol01p3s13=="127122" | dycol01p3s13=="127123" | dycol01p3s13=="127124" ///
+| dycol01p3s13=="127125" | dycol01p3s13=="127126" | dycol01p3s13=="127127" ///
+| dycol01p3s13=="127128" | dycol01p3s13=="127132" | dycol01p3s13=="127134" ///
+| dycol01p3s13=="127136" | dycol01p3s13=="127137"     
+replace otherexpnew=otherexp+durablegoodsexp if otherexpnew==.
+******************************
+* In questionary 139 code in section 13 adn we generate a new variable named newexp
+*gen newexp=durablegoodsexp if dycol01p3s13=="139111" ///
+*| dycol01p3s13=="139112" | dycol01p3s13=="139113" | dycol01p3s13=="139114" ///
+*| dycol01p3s13=="139115" | dycol01p3s13=="139116" | dycol01p3s13=="139211" ///
+*| dycol01p3s13=="139212" | dycol01p3s13=="139213" | dycol01p3s13=="139214" ///
+*| dycol01p3s13=="139215" | dycol01p3s13=="139216" | dycol01p3s13=="139217"
+******************************
+save "E:\STATA\discountrate\discountdata",replace
+********************************************************************************* 
+*********************************************************************************
+*********************************************************************************
+clear
+use "E:\STATA\discountrate\discountdata",clear
+*destring
+merge m:m province year using "E:\STATA\discountrate\temp.dta"
+keep if _merge==3
+drop _merge
+merge m:m province year using "E:\STATA\discountrate\population.dta"
+drop _merge
+************************
+
+************************************
+replace year=2010 if year==2011
+replace year=2010 if year==2012
+replace year=2013 if year==2014
+replace year=2013 if year==2015
+*********************************
+drop if year==2013
+by address, sort: keep if _N >= 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**************************************   *    *     *****************
+***********************                    **             ***********
+**************************************   *    *     *****************
+* cpresodence=1  ==> melki arse va a`yan
+* cpresodence=2  ==> melki a`yan
+* cpresodence=3  ==> ejari
+* cpresodence=4  ==> rahni
+* cpresodence=5  ==> dar barabar khedmat
+* cpresodence=6  ==> rayegan
+* cpresodence=7  ==> sayer
+*******************************
+* infraresidence=1 ==> 40 metr va kamtar
+* infraresidence=2 ==> 41 metr ta 50 metr
+* infraresidence=3 ==> 51 metr ta 60 metr
+* infraresidence=4 ==> 61 metr ta 75 metr
+* infraresidence=5 ==> 76 metr ta 80 metr
+* infraresidence=6 ==> 81 metr ta 90 metr
+* infraresidence=7 ==> 91 metr ta 100 metr
+* infraresidence=8 ==> 101 metr ta 110 metr
+* infraresidence=9 ==> 111 metr ta 150 metr
+* infraresidence=10 ==> 151 metr ta 200 metr
+* infraresidence=11 ==> 201 metr ta 300 metr
+* infraresidence=12 ==> 301 metr ta 500 metr
+* infraresidence=13 ==> 501 metr va bishtar
+**************************************   *    *     *****************
+***********************                    **             ***********
+**************************************   *    *     *****************
+
+clear
+use "E:\STATA\discountrate\discountdata", clear
+destring foodexp drinkexp clothingexp housingexp furnitureexp ///
+healthexp transportationexp communicationsexp entertainmentexp ///
+restaurantsexp otherexp durablegoodsexp investment newexp educationexp, replace
+gen vkhorak= foodexp+drinkexp
+gen vgkhorak= clothingexp+housingexp+furnitureexp+healthexp ///
++transportationexp+communicationsexp+entertainmentexp ///
++restaurantsexp+otherexp+durablegoodsexp+investment
+gen texpenditure= vkhorak+vgkhorak
+********************************
+keep address foodexp drinkexp clothingexp housingexp furnitureexp ///
+healthexp transportationexp communicationsexp entertainmentexp ///
+restaurantsexp otherexp durablegoodsexp investment vkhorak ///
+vgkhorak texpenditure RU province county year
+order address year RU province county ///
+foodexp drinkexp clothingexp housingexp furnitureexp ///
+healthexp transportationexp communicationsexp entertainmentexp ///
+restaurantsexp otherexp durablegoodsexp investment vkhorak ///
+vgkhorak texpenditure 
+save "E:\STATA\discountrate\finaldiscountdata", replace
+*************************************
+**************************************
+clear
+use "E:\STATA\discountrate\finaldiscountdata", clear
+replace year=2010 if year==2011
+replace year=2010 if year==2012
+replace year=2013 if year==2014
+replace year=2013 if year==2015
+*********************************
+drop if year==2013
+by address, sort: keep if _N >= 3
+***************************
+******************************
